@@ -1,5 +1,5 @@
 // 1037. 약수
-// S1
+// S5
 
 #include <iostream>
 using namespace std;

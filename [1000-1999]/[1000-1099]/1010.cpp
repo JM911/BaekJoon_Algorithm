@@ -1,5 +1,5 @@
 // 1010. 다리 놓기
-// S1
+// S5
 
 #include <iostream>
 using namespace std;

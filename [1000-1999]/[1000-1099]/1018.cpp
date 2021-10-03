@@ -1,5 +1,5 @@
 // 1018. 체스판 다시 칠하기
-// S1
+// S5
 
 #include <iostream>
 using namespace std;

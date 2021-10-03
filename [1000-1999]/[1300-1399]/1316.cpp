@@ -1,5 +1,5 @@
 // 1316. 그룹 단어 체커
-// S1
+// S5
 
 #include <iostream>
 #include <cstring>
