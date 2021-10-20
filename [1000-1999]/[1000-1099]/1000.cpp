@@ -1,3 +1,6 @@
+// 1000. A+B
+// B5
+
 #include <iostream>
 using namespace std;
 
