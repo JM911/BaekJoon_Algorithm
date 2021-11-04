@@ -1,3 +1,6 @@
+// 2606. 바이러스
+// S3
+
 #include <bits/stdc++.h>
 #define fastio cin.tie(nullptr); ios::sync_with_stdio(false)
 using namespace std;
