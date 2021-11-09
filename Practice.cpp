@@ -2,43 +2,44 @@
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
 
+bool paint[501][501];
+bool isVisited[501][501];
+
 int main()
 {
     fastio;
-    int N;
-    cin >> N;
+    int n, m;
+    cin >> n >> m;
 
-    stack<int> A;
-    stack<int> NGE;
-    stack<int> ans;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cin >> paint[i][j];
+        }
+    }
 
+    queue<pair<int, int>> q;
+    int ans = 0;
+    int max = 0;
     int temp;
 
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < n; i++)
     {
-        cin >> temp;
-        A.push(temp);
+        for (int j = 0; j < m; j++)
+        {
+            if(paint[i][j] == true && isVisited[i][j] == false)
+            {
+                ans++;
+                if(i-1>0 && paint[i-1][j] == true && isVisited[i-1][j] == false)
+                    q.push(make_pair(i - 1, j));
+
+                
+                while(!q.empty())
+                {
+                    
+                }
+            }
+        }
     }
-
-    while (!A.empty())
-    {
-        while (!NGE.empty() && NGE.top() <= A.top())
-            NGE.pop();
-
-        if (NGE.empty())
-            ans.push(-1);
-        else
-            ans.push(NGE.top());
-
-        NGE.push(A.top());
-        A.pop();
-    }
-
-    while(!ans.empty())
-    {
-        cout << ans.top() << ' ';
-        ans.pop();
-    }
-
-    return 0;
 }
