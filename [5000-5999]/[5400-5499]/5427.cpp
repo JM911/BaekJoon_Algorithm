@@ -1,3 +1,6 @@
+// 5427. 불
+// G4
+
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
