@@ -1,3 +1,6 @@
+// 9466. 텀 프로젝트
+// G3
+
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
