@@ -2,65 +2,48 @@
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
 
-int bwData[65][65];
+char stars[2188][2188];
 
-int whatColor(int startX, int startY, int len)  // 0: 흰색 통일, 1: 검은색 통일, 2: 통일 안됨
+void InputSpace(int startX, int startY, int N)
 {
-    if(len == 1)
-        return bwData[startX][startY];
-
-    int half = len / 2;
-
-    int leftTop = whatColor(startX, startY, half);
-    int rightTop = whatColor(startX, startY + half, half);
-    int leftBot = whatColor(startX + half, startY, half);
-    int rightBot = whatColor(startX + half, startY + half, half);
-
-    if(leftTop == rightTop && leftTop == leftBot && leftTop == rightBot)
-        return leftTop;
-    else
-        return 2;
-}
-
-void printQT(int startX, int startY, int len)
-{
-    int temp = whatColor(startX, startY, len);
-    if(temp != 2)
+    if(N==1)
     {
-        cout << temp;
+        stars[startX][startY] = ' ';
         return;
     }
 
-    cout << '(';
+    int third = N / 3;
 
-    int half = len / 2;
+    InputSpace(startX, startY, third);
+    InputSpace(startX, startY + third, third);
+    InputSpace(startX, startY + third * 2, third);
+    InputSpace(startX + third, startY, third);
+    InputSpace(startX + third, startY + third, third);
+    InputSpace(startX + third, startY + third * 2, third);
+    InputSpace(startX + third * 2, startY, third);
+    InputSpace(startX + third * 2, startY + third, third);
+    InputSpace(startX + third * 2, startY + third * 2, third);
+}
 
-    int leftTop = whatColor(startX, startY, half);
-    int rightTop = whatColor(startX, startY + half, half);
-    int leftBot = whatColor(startX + half, startY, half);
-    int rightBot = whatColor(startX + half, startY + half, half);
+void InputStars(int startX, int startY, int N)
+{
+    if(N==1)
+    {
+        stars[startX][startY] = '*';
+        return;
+    }
 
-    if(leftTop != 2)
-        cout << leftTop;
-    else
-        printQT(startX, startY, half);
-    
-    if(rightTop != 2)
-        cout << rightTop;
-    else
-        printQT(startX, startY + half, half);
-    
-    if(leftBot != 2)
-        cout << leftBot;
-    else
-        printQT(startX + half, startY, half);
-    
-    if(rightBot != 2)
-        cout << rightBot;
-    else
-        printQT(startX + half, startY + half, half);
+    int third = N / 3;
 
-    cout << ')';
+    InputStars(startX, startY, third);
+    InputStars(startX, startY + third, third);
+    InputStars(startX, startY + third * 2, third);
+    InputStars(startX + third, startY, third);
+    InputSpace(startX + third, startY + third, third);
+    InputStars(startX + third, startY + third * 2, third);
+    InputStars(startX + third * 2, startY, third);
+    InputStars(startX + third * 2, startY + third, third);
+    InputStars(startX + third * 2, startY + third * 2, third);
 }
 
 int main()
@@ -69,22 +52,16 @@ int main()
     int N;
     cin >> N;
 
+    InputStars(0, 0, N);
+    
     for (int i = 0; i < N; i++)
     {
-        string tempStr;
-        cin >> tempStr;
-
         for (int j = 0; j < N; j++)
         {
-            bwData[i][j] = tempStr[j] - '0';
+            cout << stars[i][j];
         }
+        cout << '\n';
     }
 
-    // if(N==1)
-    // {
-    //     cout << bwData[0][0];
-    //     return 0;
-    // }
-
-    printQT(0, 0, N);
+    return 0;
 }
