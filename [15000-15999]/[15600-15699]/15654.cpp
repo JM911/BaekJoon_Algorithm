@@ -1,9 +1,12 @@
+// 15654. N과 M (5)
+// S3
+
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
 
 int N, M;
-//int prevIdx;
+//int prevNum = 1;
 int nums[10];
 int arr[10];
 bool isVisited[10];
@@ -22,11 +25,8 @@ void PickNums(int len)
     {
         if(isVisited[i] == false)
         {
-            if(arr[len] == nums[i])
-                continue;
             arr[len] = nums[i];
             isVisited[i] = true;
-            //prevIdx = i;
             PickNums(len + 1);
             isVisited[i] = false;
         }
@@ -37,7 +37,6 @@ int main()
 {
     fastio;
     cin >> N >> M;
-    fill(nums, nums + 10, 10001);
 
     for (int i = 0; i < N; i++)
     {
