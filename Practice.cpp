@@ -2,71 +2,115 @@
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
 
-int N;
-pair<int, int> eggs[10];    // first: 체력, second: 공격력
-int maxEgg, curEgg;
+bool notebook[50][50];
+bool sticker[50][50];
+bool newSticker[50][50];
 
-void HitEggs(int idx, int right)
+void Stick(int startX, int startY, int h, int w)
 {
-    if(idx > right || (idx == right && curEgg+1 == N))
+    for (int i = 0; i < h; i++)
     {
-        maxEgg = max(maxEgg, curEgg);
-        return;
-    }
-
-    if(eggs[idx].first <= 0)
-    {
-        HitEggs(idx+1, right);
-        return;
-    }
-
-    for (int i = 1; i <= N; i++)
-    {
-        if(eggs[i].first <= 0 || i == idx)
-            continue;
-
-        eggs[i].first -= eggs[idx].second;
-        eggs[idx].first -= eggs[i].second;
-
-        if(eggs[i].first <= 0)
-            curEgg++;
-        if(eggs[idx].first <= 0)
-            curEgg++;
-
-        int newRight = idx;
-        for (int j = N; j>=1; j--)
+        for (int j = 0; j < w; j++)
         {
-            if(eggs[j].first > 0)
-            {
-                newRight = j;
-                break;
-            }
+            if (notebook[startX + i][startY + j] == 0 && sticker[i][j] == 1)
+                notebook[startX + i][startY + j] = 1;
         }
+    }
+}
 
-        HitEggs(idx + 1, newRight);
+bool CanStick(int startX, int startY, int h, int w)
+{
+    for (int i = 0; i < h; i++)
+    {
+        for (int j = 0; j < w; j++)
+        {
+            if(notebook[startX + i][startY + j] == 1 && sticker[i][j] == 1)
+                return false;
+        }
+    }
+    return true;
+}
 
-        if(eggs[i].first <= 0)
-            curEgg--;
-        if(eggs[idx].first <= 0)
-            curEgg--;
-        
-        eggs[i].first += eggs[idx].second;
-        eggs[idx].first += eggs[i].second;
+void RotateStickerOnce(int& h, int& w)
+{
+    int temp = h;
+    h = w;
+    w = temp;
+
+    //fill(&newSticker[0][0], &newSticker[49][50], false);        // 디버깅용
+
+    for (int i = 0; i < h; i++)
+    {
+        for (int j = 0; j < w; j++)
+        {
+            newSticker[i][j] = sticker[w - j - 1][i];
+        }
+    }        
+    
+    for (int i = 0; i < h; i++) 
+    {
+        for (int j = 0; j < w; j++)
+        {
+            sticker[i][j] = newSticker[i][j];
+        }
     }
 }
 
 int main()
 {
     fastio;
-    cin >> N;
+    int N, M, K;
+    cin >> N >> M >> K;
 
-    eggs[0] = {1, 1};
-    for (int i = 1; i <= N; i++)
+    while(K--)
     {
-        cin >> eggs[i].first >> eggs[i].second;
+        int sHeight, sWidth;
+        cin >> sHeight >> sWidth;
+
+        for (int i = 0; i < sHeight; i++)
+        {
+            for (int j = 0; j < sWidth; j++)
+            {
+                cin >> sticker[i][j];
+            }
+        }
+
+        for (int rot = 0; rot < 4; rot++)
+        {
+            bool isSticked = false;
+            for (int i = 0; i < N - sHeight + 1; i++)
+            {
+                for (int j = 0; j < M - sWidth + 1; j++)
+                {
+                    if(CanStick(i, j, sHeight, sWidth))
+                    {
+                        isSticked = true;
+                        Stick(i, j, sHeight, sWidth);
+                        break;
+                    }
+                }
+
+                if(isSticked)
+                    break;
+            }
+
+            if(isSticked)
+                break;
+
+            RotateStickerOnce(sHeight, sWidth);
+        }
     }
 
-    HitEggs(1, N);
+    int ans = 0;
 
-    cout << maxEgg;
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            if(notebook[i][j] == 1)
+                ans++;
+        }
+    }
+
+    cout << ans;
 }
