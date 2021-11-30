@@ -1,3 +1,6 @@
+// 11559. Puyo Puyo
+// G5
+
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
@@ -94,7 +97,7 @@ void Fall()
     {
         int lastSpace = 11;
         
-        while(gameBoard[lastSpace][j] != '.')
+        while(lastSpace>=0 && gameBoard[lastSpace][j] != '.')
         {
             lastSpace--;
         }
