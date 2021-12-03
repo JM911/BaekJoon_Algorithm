@@ -4,7 +4,12 @@
         "vector": "cpp",
         "stack": "cpp",
         "random": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "string_view": "cpp",
+        "forward_list": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

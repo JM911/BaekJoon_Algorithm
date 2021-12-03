@@ -2,139 +2,123 @@
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
 
-char gameBoard[15][10];
-bool isFour[15][10];
-bool isVisited[15][10];
+int N, M, x, y, K;
+int topNum, bottomNum, leftNum, rightNum, frontNum, backNum;
+int mapNum[30][30];
 
-int dx[4] = {1, -1, 0, 0};
-int dy[4] = {0, 0, 1, -1};
-
-bool SearchFour()
+void CheckBottom()
 {
-    fill(&isVisited[0][0], &isVisited[14][10], false);
-    bool searched = false;
+    if(mapNum[x][y] == 0)
+        mapNum[x][y] = bottomNum;
 
-    for (int i = 0; i < 12; i++)
+    else
     {
-        for (int j = 0; j < 6; j++)
-        {
-            if(gameBoard[i][j] == '.' || isVisited[i][j] == true)
-                continue;
-
-            stack<pair<int, int>> s;
-            queue<pair<int, int>> q;
-            int tempPuyoNum = 1;
-            s.push({i, j});
-            isVisited[i][j] = true;
-
-            while(!s.empty())
-            {
-                int curX = s.top().first;
-                int curY = s.top().second;
-                s.pop();
-                q.push({curX, curY});
-                char curColor = gameBoard[curX][curY];
-
-                for (int dir = 0; dir < 4; dir++)
-                {
-                    int x = curX + dx[dir];
-                    int y = curY + dy[dir];
-                    
-                    if(x<0 || y<0 || x>=12 || y>=6)
-                        continue;
-                    
-                    if(isVisited[x][y] == true)
-                        continue;
-                    
-                    if(gameBoard[x][y] == curColor)
-                    {
-                        isVisited[x][y] = true;
-                        tempPuyoNum++;
-                        s.push({x, y});
-                        q.push({x, y});
-                    }
-                }
-            }
-
-            if(tempPuyoNum >= 4)
-            {
-                searched = true;
-                
-                while(!q.empty())
-                {
-                    isFour[q.front().first][q.front().second] = true;
-                    q.pop();
-                }
-            }
-        }
+        bottomNum = mapNum[x][y];
+        mapNum[x][y] = 0;
     }
-
-    return searched;
 }
 
-void Boom()
+void RollEast()
 {
-    for (int i = 0; i < 12; i++)
-    {
-        for (int j = 0; j < 6; j++)
-        {
-            if(isFour[i][j] == true)
-            {
-                gameBoard[i][j] = '.';
-            }
-        }
-    }
+    int tmp = bottomNum;
+    bottomNum = rightNum;
+    rightNum = topNum;
+    topNum = leftNum;
+    leftNum = tmp;
 
-    fill(&isFour[0][0], &isFour[14][10], false);
+    y++;
 }
 
-void Fall()
+void RollWest()
 {
-    for (int j = 0; j < 6; j++)
-    {
-        int lastSpace = 11;
-        
-        while(gameBoard[lastSpace][j] != '.')
-        {
-            lastSpace--;
-        }
+    int tmp = bottomNum;
+    bottomNum = leftNum;
+    leftNum = topNum;
+    topNum = rightNum;
+    rightNum = tmp;
 
-        for (int i = lastSpace; i >= 0; i--)
-        {
-            if(gameBoard[i][j] == '.')
-                continue;
-            else
-            {
-                gameBoard[lastSpace][j] = gameBoard[i][j];
-                gameBoard[i][j] = '.';
-                lastSpace--;
-            }
-        }
-    }
+    y--;
+}
+
+void RollNorth()
+{
+    int tmp = bottomNum;
+    bottomNum = backNum;
+    backNum = topNum;
+    topNum = frontNum;
+    frontNum = tmp;
+
+    x--;
+}
+
+void RollSouth()
+{
+    int tmp = bottomNum;
+    bottomNum = frontNum;
+    frontNum = topNum;
+    topNum = backNum;
+    backNum = tmp;
+
+    x++;
 }
 
 int main()
 {
-    fastio;
+    //fastio;
+    cin >> N >> M >> x >> y >> K;
 
-    for (int i = 0; i < 12; i++)
+    for (int i = 0; i < N; i++)
     {
-        string tempStr;
-        cin >> tempStr;
-        for (int j = 0; j < 6; j++)
+        for (int j = 0; j < M; j++)
         {
-            gameBoard[i][j] = tempStr[j];
+            cin >> mapNum[i][j];
         }
     }
 
-    int ans = 0;
-
-    while(SearchFour())
+    while(K--)
     {
-        ans++;
-        Boom();
-        Fall();
+        int dir;
+        cin >> dir;
+
+        bool rolling = true;
+
+        switch(dir)
+        {
+        case 1:
+            if(y==M-1)
+                rolling = false;
+            else
+                RollEast();
+            break;
+
+        case 2:
+            if(y==0)
+                rolling = false;
+            else
+                RollWest();
+            break;
+
+        case 3:
+            if(x==0)
+                rolling = false;
+            else
+                RollNorth();
+            break;
+
+        case 4:
+            if(x==N-1)
+                rolling = false;
+            else
+                RollSouth();
+            break;
+        }
+
+        if(rolling)
+        {
+            CheckBottom();
+            cout << topNum << '\n';
+        }
     }
 
-    cout << ans;
+        return 0;
 }
