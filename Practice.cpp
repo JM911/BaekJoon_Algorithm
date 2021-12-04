@@ -2,123 +2,54 @@
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
 
-int N, M, x, y, K;
-int topNum, bottomNum, leftNum, rightNum, frontNum, backNum;
-int mapNum[30][30];
+int n, w, L;
+int truckW[20];
+int truckPos[20];
+int curL;
+int firstIdx;
+int lastIdx;
 
-void CheckBottom()
+void ProcedeOneSec()
 {
-    if(mapNum[x][y] == 0)
-        mapNum[x][y] = bottomNum;
-
-    else
+    for (int i = firstIdx; i <= lastIdx; i++)
     {
-        bottomNum = mapNum[x][y];
-        mapNum[x][y] = 0;
+        truckPos[i]++;
     }
-}
 
-void RollEast()
-{
-    int tmp = bottomNum;
-    bottomNum = rightNum;
-    rightNum = topNum;
-    topNum = leftNum;
-    leftNum = tmp;
+    if(truckPos[firstIdx] == w+1)
+    {
+        curL += truckW[firstIdx];
+        firstIdx++;
+    }
 
-    y++;
-}
-
-void RollWest()
-{
-    int tmp = bottomNum;
-    bottomNum = leftNum;
-    leftNum = topNum;
-    topNum = rightNum;
-    rightNum = tmp;
-
-    y--;
-}
-
-void RollNorth()
-{
-    int tmp = bottomNum;
-    bottomNum = backNum;
-    backNum = topNum;
-    topNum = frontNum;
-    frontNum = tmp;
-
-    x--;
-}
-
-void RollSouth()
-{
-    int tmp = bottomNum;
-    bottomNum = frontNum;
-    frontNum = topNum;
-    topNum = backNum;
-    backNum = tmp;
-
-    x++;
+    if (lastIdx+1 < n && curL >= truckW[lastIdx + 1])
+    {
+        lastIdx++;
+        if(truckPos[lastIdx-1] != 1) truckPos[lastIdx]++;
+        curL -= truckW[lastIdx];
+    }
 }
 
 int main()
 {
-    //fastio;
-    cin >> N >> M >> x >> y >> K;
+    fastio;
+    cin >> n >> w >> L;
 
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < M; j++)
-        {
-            cin >> mapNum[i][j];
-        }
+        cin >> truckW[i];
     }
 
-    while(K--)
+    curL = L - truckW[0];
+
+    int ans = 0;
+    while(truckPos[n-1] != w+1)
     {
-        int dir;
-        cin >> dir;
-
-        bool rolling = true;
-
-        switch(dir)
-        {
-        case 1:
-            if(y==M-1)
-                rolling = false;
-            else
-                RollEast();
-            break;
-
-        case 2:
-            if(y==0)
-                rolling = false;
-            else
-                RollWest();
-            break;
-
-        case 3:
-            if(x==0)
-                rolling = false;
-            else
-                RollNorth();
-            break;
-
-        case 4:
-            if(x==N-1)
-                rolling = false;
-            else
-                RollSouth();
-            break;
-        }
-
-        if(rolling)
-        {
-            CheckBottom();
-            cout << topNum << '\n';
-        }
+        ans++;
+        ProcedeOneSec();
     }
 
-        return 0;
+    cout << ans;
+
+    return 0;
 }
