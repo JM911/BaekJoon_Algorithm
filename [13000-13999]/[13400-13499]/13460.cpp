@@ -1,3 +1,6 @@
+// 13460. 구슬 탈출 2
+// G1
+
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
