@@ -9,7 +9,8 @@
         "deque": "cpp",
         "list": "cpp",
         "string_view": "cpp",
-        "forward_list": "cpp"
+        "forward_list": "cpp",
+        "tuple": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

@@ -1,8 +1,11 @@
+// 11726. 2xn 타일링
+// S1
+
 #include <bits/stdc++.h>
 using namespace std;
 
 int n;
-int dp[1010];
+long long ans[1010];
 
 int main()
 {
@@ -11,14 +14,14 @@ int main()
 
     cin >> n;
 
-    dp[1] = 1;
-    dp[2] = 3;
+    ans[1] = 1;
+    ans[2] = 2;
 
     for (int i = 3; i <= n; i++)
     {
-        dp[i] = dp[i - 1] + dp[i - 2] * 2;
-        dp[i] %= 10007;
+        ans[i] = ans[i - 2] + ans[i - 1];
+        ans[i] %= 10007;
     }
 
-    cout << dp[n];
+    cout << ans[n];
 }
