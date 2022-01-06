@@ -1,3 +1,6 @@
+// 1915. 가장 큰 정사각형
+// G4
+
 #include <bits/stdc++.h>
 using namespace std;
 
