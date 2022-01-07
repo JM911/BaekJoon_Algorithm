@@ -1,3 +1,6 @@
+// 2011. 암호코드
+// S1
+
 #include <bits/stdc++.h>
 using namespace std;
 
