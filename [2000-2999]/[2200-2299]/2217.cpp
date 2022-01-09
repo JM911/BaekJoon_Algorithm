@@ -1,9 +1,12 @@
+// 2217. 로프
+// S4
+
 #include <bits/stdc++.h>
 using namespace std;
 
-int N, ans;
-int A[55];
-int B[55];
+int N;
+int rope[100010];
+int ans;
 
 int main()
 {
@@ -14,20 +17,15 @@ int main()
 
     for (int i = 0; i < N; i++)
     {
-        cin >> A[i];
+        cin >> rope[i];
     }
+
+    sort(rope, rope + N);
 
     for (int i = 0; i < N; i++)
     {
-        cin >> B[i];
-    }
-
-    sort(A, A + N);
-    sort(B, B + N, greater<int>());
-
-    for (int i = 0; i < N; i++)
-    {
-        ans += A[i] * B[i];
+        int tmp = rope[i] * (N - i);
+        ans = max(ans, tmp);
     }
 
     cout << ans;
