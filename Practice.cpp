@@ -1,9 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int N, ans;
-int A[55];
-int B[55];
+int N, sum;
+pair<int, int> Line[1000010];
 
 int main()
 {
@@ -11,24 +10,29 @@ int main()
     ios_base::sync_with_stdio(false);
 
     cin >> N;
-
     for (int i = 0; i < N; i++)
     {
-        cin >> A[i];
+        cin >> Line[i].first >> Line[i].second;
     }
 
-    for (int i = 0; i < N; i++)
+    sort(Line, Line + N);
+
+    sum += Line[0].second - Line[0].first;
+    int curEnd = Line[0].second;
+
+    for (int i = 1; i < N; i++)
     {
-        cin >> B[i];
+        if(curEnd >= Line[i].second)
+            continue;
+        
+        else if(Line[i].second > curEnd && Line[i].first <= curEnd)
+            sum += Line[i].second - curEnd;
+        
+        else
+            sum += Line[i].second - Line[i].first;
+
+        curEnd = Line[i].second;
     }
 
-    sort(A, A + N);
-    sort(B, B + N, greater<int>());
-
-    for (int i = 0; i < N; i++)
-    {
-        ans += A[i] * B[i];
-    }
-
-    cout << ans;
-}  
+    cout << sum;
+}
