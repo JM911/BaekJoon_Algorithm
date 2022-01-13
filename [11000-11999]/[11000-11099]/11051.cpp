@@ -1,3 +1,6 @@
+// 11051. 이항 계수 2
+// S1
+
 #include <bits/stdc++.h>
 using namespace std;
 
