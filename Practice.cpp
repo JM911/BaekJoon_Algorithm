@@ -1,38 +1,53 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int N, sum;
-pair<int, int> Line[1000010];
+int T, M, N, x, y;
+
+int GCD(int a, int b)
+{
+    if(b%a == 0)
+        return a;
+    return GCD(b % a, a);
+}
 
 int main()
 {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    cin >> N;
-    for (int i = 0; i < N; i++)
+    cin >> T;
+
+    while(T--)
     {
-        cin >> Line[i].first >> Line[i].second;
+        cin >> M >> N >> x >> y;
+
+        if(M>N)
+        {
+            int tmp = M;
+            M = N;
+            N = tmp;
+
+            tmp = x;
+            x = y;
+            y = tmp;
+        }
+
+        int LCM = M / GCD(M, N) * N;
+
+        int target = y;
+        int ans = -1;
+
+        while(target <= LCM + y)
+        {
+            if(target % M == x)
+            {
+                ans = target;
+                break;
+            }
+
+            target += N;
+        }
+
+        cout << ans << '\n';
     }
-
-    sort(Line, Line + N);
-
-    sum += Line[0].second - Line[0].first;
-    int curEnd = Line[0].second;
-
-    for (int i = 1; i < N; i++)
-    {
-        if(curEnd >= Line[i].second)
-            continue;
-        
-        else if(Line[i].second > curEnd && Line[i].first <= curEnd)
-            sum += Line[i].second - curEnd;
-        
-        else
-            sum += Line[i].second - Line[i].first;
-
-        curEnd = Line[i].second;
-    }
-
-    cout << sum;
 }
