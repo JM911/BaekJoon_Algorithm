@@ -1,3 +1,6 @@
+// 9613. GCD 합
+// S3
+
 #include <bits/stdc++.h>
 using namespace std;
 
