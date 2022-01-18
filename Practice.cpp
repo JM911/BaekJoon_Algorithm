@@ -1,44 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int t, n;
-int Num[110];
-
-int GCD(int a, int b)
-{
-    if(b%a == 0)
-        return a;
-
-    return GCD(b % a, a);
-}
+int N, A, B;
 
 int main()
 {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    cin >> t;
+    cin >> N >> A >> B;
 
-    while(t--)
+    if(A>B)
+        swap(A, B);
+
+    int ans = 1;
+
+    while(true)
     {
-        cin >> n;
+        if(B-A == 1 && A%2 == 1)
+            break;
 
-        for (int i = 0; i < n; i++)
-        {
-            cin >> Num[i];
-        }
-
-        sort(Num, Num + n);
-        long long ans = 0;
-
-        for (int i = 0; i < n - 1; i++)
-        {
-            for (int j = i + 1; j < n; j++)
-            {
-                ans += GCD(Num[i], Num[j]);
-            }
-        }
-
-        cout << ans << '\n';
+        A = (A + 1) / 2;
+        B = (B + 1) / 2;
+        ans++;
     }
+
+    cout << ans;
 }
