@@ -1,3 +1,6 @@
+// 2295. 세 수의 합
+// G4
+
 #include <bits/stdc++.h>
 using namespace std;
 
