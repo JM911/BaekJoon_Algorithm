@@ -1,29 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int N, A, B;
+int n, m;
+int a[100005];
+
+int BNSearch(int target, int st, int en)
+{
+}
 
 int main()
 {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
 
-    cin >> N >> A >> B;
+    cin >> n;
 
-    if(A>B)
-        swap(A, B);
-
-    int ans = 1;
-
-    while(true)
+    for (int i = 0; i < n; i++)
     {
-        if(B-A == 1 && A%2 == 1)
-            break;
-
-        A = (A + 1) / 2;
-        B = (B + 1) / 2;
-        ans++;
+        cin >> a[i];
     }
 
-    cout << ans;
+    cin >> m;
 }
