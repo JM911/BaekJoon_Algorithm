@@ -10,7 +10,8 @@
         "list": "cpp",
         "string_view": "cpp",
         "forward_list": "cpp",
-        "tuple": "cpp"
+        "tuple": "cpp",
+        "*.tcc": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
