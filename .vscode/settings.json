@@ -11,7 +11,14 @@
         "string_view": "cpp",
         "forward_list": "cpp",
         "tuple": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "bitset": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "functional": "cpp",
+        "ratio": "cpp",
+        "streambuf": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
