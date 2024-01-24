@@ -24,7 +24,9 @@
         "memory": "cpp",
         "future": "cpp",
         "istream": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "cmath": "cpp",
+        "complex": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
